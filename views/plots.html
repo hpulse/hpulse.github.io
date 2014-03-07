@@ -1,0 +1,35 @@
+<div class="row" ng-controller="RefreshCtrl">
+	<div ng-show="JmxRefresher.error" class="alert alert-danger">
+		<h5>Uh oh.</h5>
+		<p>{{JmxRefresher.error}}</p>
+	</div>
+
+
+	<h1>Plots</h1>
+	<div ng-hide="plots.length" class="alert alert-warning">
+		<strong>No beans selected.</strong> <a href="#/beans">Select</a> some beans first.
+	</div>
+
+	<div ng-repeat="plot in plots" ng-controller="PlotCtrl" ng-init="plot=plot">
+		<h3>
+			{{PlotCtrl.formattedPath()}}
+			<div class="btn-group">
+				<button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+					Edit <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a class="pointable" ng-click="PlotCtrl.toggleDetails()">{{titleForToggleDetails()}}</a></li>
+					<li><a class="pointable" ng-click="PlotCtrl.toggleDerivative()">{{titleForToggleDerivative()}}</a></li>
+					<li class="divider"></li>
+					<li><a class="pointable" ng-click="PlotsCtrl.removePlot(plot)">Remove Plot</a></li>
+				</ul>
+			</div>
+		</h3>
+
+		<div class="details" ng-show="plot.show_details">
+			Most Recent Value=<code>{{PlotCtrl.mostRecentValue()}}</code>
+		</div>
+
+		<plot settings="plot"></plot>
+	</div>
+</div>
