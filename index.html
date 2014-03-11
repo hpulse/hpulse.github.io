@@ -13,7 +13,7 @@
 
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="styles/0e90ee6e.main.css">
+    <link rel="stylesheet" href="styles/a6607bab.main.css">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -37,18 +37,21 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
+    <nav class="navbar navbar-default nav-fixed-top" role="navigation" ng-controller="NavCtrl">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" id="logobrand" href="#"><img src="images/d0f9702b.icon.png" height="33px"></a>
+          <a class="navbar-brand pointable" ng-click="goToUrl('home')" id="logobrand"><img src="images/d0f9702b.icon.png" height="33px"></a>
         </div>
 
-        <div class="navbar-collapse collapse" ng-controller="NavCtrl">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <li ng-class="{active: ($route.current.tabname == 'beans')}">
               <a class="pointable" ng-click="goToBookmarkableUrl('beans')">Select Data</a>
@@ -62,13 +65,64 @@
             <li ng-class="{active: ($route.current.tabname == 'faq')}">
               <a class="pointable" ng-click="goToUrl('faq', false)">FAQ</a>
             </li>
+            <li ng-controller="ConfigCtrl">
+              <a class="pointable" data-toggle="modal" data-target="#settings-modal">
+                <i class="fa fa-cog"></i> Settings
+              </a>
+            </li>
           </ul>
-        </div><!--/.nav-collapse -->
-
-      </div>
-    </div>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
 
     <div class="container" ng-view=""></div>
+
+    <!-- Large modal -->
+    <div id="settings-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">HPulse Settings</h4>
+          </div>
+          <div class="modal-body" ng-controller="ConfigCtrl">
+
+            <form class="form-horizontal" role="form">
+              <div class="form-group">
+                <label for="jmx-url" class="col-sm-2 control-label">JMX URL</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="jmx-url" ng-model="copy.url" disabled="disabled">
+                </div>
+                <div class="col-sm-2">
+                  <a class="btn btn-default">Edit</a>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="refresh-period" class="col-sm-2 control-label">Refresh Period</label>
+                <div class="col-sm-3">
+                  <div class="input-group">
+                    <input type="number" class="form-control" id="refresh-period" ng-model="copy.refresh">
+                    <span class="input-group-addon">ms</span>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+
+            <hr>
+
+            <h5>Raw:</h5>
+            <pre>proposed: {{copy}}</pre>
+            <pre>current: {{settings}}</pre>
+
+            <div class="modal-footer">
+              <a class="btn btn-default" data-dismiss="modal">Close</a>
+              <a ng-class="{btn: true, 'btn-primary': true, disabled: synchronized}" ng-click="commit()">Commit</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
@@ -80,6 +134,6 @@
 
         <script src="scripts/6b865daa.modules.js"></script>
 
-        <script src="scripts/348e1668.scripts.js"></script>
+        <script src="scripts/335e253e.scripts.js"></script>
 </body>
 </html>
