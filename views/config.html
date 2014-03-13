@@ -46,9 +46,12 @@
 
         <hr>
 
-        <h5>Raw:</h5>
-        <pre>proposed: {{copy}}</pre>
-        <pre>current: {{settings}}</pre>
+        <a class="pointable" ng-click="ConfigCtrl.show_raw = !ConfigCtrl.show_raw">Toggle Raw</a>
+        <div ng-show="ConfigCtrl.show_raw">
+          <h5>Raw:</h5>
+          <pre>proposed: {{copy}}</pre>
+          <pre>current: {{settings}}</pre>
+        </div>
 
         <div class="modal-footer">
           <a class="btn btn-default" data-dismiss="modal">Close</a>
